@@ -1,0 +1,109 @@
+/* Background and Text */
+* {
+    background-color: #008692;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+window {
+    background-color: #008692;
+    color: #000000;
+}
+
+label, .gtk-label {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+/* Buttons */
+button {
+    border-radius: 1px;
+    padding: 1px 2px;
+    color: #000000;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #000000;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #000000;
+    transform: translateY(1px);
+}
+
+/* Entry/Field inputs */
+.entry {
+    background-color: #1c1f24;
+    border: 1px solid #444d56;
+    color: #000000;
+    border-radius: 1px;
+}
+
+.entry:focus {
+    border-color: #61afef;
+    box-shadow: 0 0 3px #61afef;
+}
+
+/* ComboBox */
+combobox {
+    background-color: #1c1f24;
+    border: 1px solid #444d56;
+    color: #000000;
+    border-radius: 4px;
+}
+
+combobox:focus {
+    border-color: #61afef;
+    box-shadow: 0 0 3px #61afef;
+}
+
+/* Scrollbar */
+scrollbar {
+    background-color: #2e343b;
+    width: 12px;
+}
+
+scrollbar slider {
+    background-color: #61afef;
+    border-radius: 6px;
+}
+
+scrollbar slider:hover {
+    background-color: #528bbf;
+}
+
+scrollbar slider:active {
+    background-color: #417fa3;
+}
+
+/* Menu items */
+menuitem {
+    padding: 6px 12px;
+    color: #000000;
+}
+
+menuitem:hover {
+    background-color: #2e343b;
+}
+
+menuitem:active {
+    background-color: #1c1f24;
+}
+
+/* Window borders */
+window {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus States */
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid #000000;
+}

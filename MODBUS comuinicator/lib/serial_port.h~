@@ -1,0 +1,56 @@
+#include <windows.h>
+#include <stdio.h>
+#include "../lib/serial_port.h"
+
+#define MAX_PORTS 256 // Define the maximum number of ports to scan
+
+int scan_ports() {
+    COMSTAT comstat;
+    DWORD dwError;
+    int availablePorts = 0;
+
+    printf("Scanning serial ports...\n");
+
+    for (int i = 1; i <= MAX_PORTS; i++) {
+        char portName[20];
+        snprintf(portName, sizeof(portName), "\\\\.\\COM%d", i);
+
+        // Attempt to open the port
+        HANDLE hComm = CreateFile(portName, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+
+        if (hComm == INVALID_HANDLE_VALUE) {
+            dwError = GetLastError();
+            if (dwError == ERROR_ACCESS_DENIED) {
+                printf("COM%d: In use or inaccessible\n", i);
+            } else if (dwError == ERROR_FILE_NOT_FOUND) {
+                printf("COM%d: Does not exist\n", i);
+            } else {
+                printf("COM%d: Error (code %lu)\n", i, dwError);
+            }
+            continue;
+        }
+
+        // Check port status
+        if (ClearCommError(hComm, &dwError, &comstat)) {
+            printf("COM%d: Available\n", i);
+            availablePorts++;
+        } else {
+            printf("COM%d: Error clearing comm state (code %lu)\n", i, dwError);
+        }
+
+        // Close the port
+        CloseHandle(hComm);
+    }
+
+    return availablePorts;
+}
+
+int service_ports() {
+    int portsFound = scan_ports();
+    if (portsFound > 0) {
+        printf("Found %d available port(s).\n", portsFound);
+    } else {
+        printf("No available serial ports found.\n");
+    }
+    return portsFound;
+}
